@@ -1,7 +1,12 @@
 import "./App.css";
+import Index from "./pages/home";
 
 function App() {
-  return <div className="text-center">Hello</div>;
+  return (
+    <div>
+      <Index />
+    </div>
+  );
 }
 
 export default App;
