@@ -5,7 +5,7 @@ import Footer from "../../navigation/footer";
 
 const Index = () => {
   return (
-    <div className="px-15 md:px-20 lg:px-24">
+    <div>
       <Header />
       <Section />
       <Footer />

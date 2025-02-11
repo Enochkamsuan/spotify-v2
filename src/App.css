@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  background-color: #000;
+}
+.Dropdown-control {
+  background: transparent !important;
+  color: #fff !important;
+}
+.Dropdown-menu {
+  width: 200px !important;
+}
+.offers {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  object-fit: cover;
+  min-height: 184px;
+  display: flex !important;
+}
+.offers_1 {
+  background-image: url("./assets/images/slide_1.jpg");
+}
+.offers_2 {
+  background-image: url("./assets/images/slide_2.jpg");
+}
+.offers_3 {
+  background-image: url("./assets/images/slide_3.jpg");
+}
