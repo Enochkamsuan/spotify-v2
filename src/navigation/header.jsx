@@ -61,7 +61,7 @@ const Header = () => {
   };
 
   return (
-    <nav className="px-16 sm:px-20 md:px-24 lg:px-24 border-gray-200 dark:bg-gray-900">
+    <nav className="px-6 sm:px-20 md:px-24 lg:px-24 border-gray-200 dark:bg-gray-900">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
         <div className="text-white">Logo</div>
         <button

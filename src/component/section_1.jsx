@@ -19,9 +19,9 @@ const Section = () => {
   return (
     <div>
       <Landing />
-      <div className="px-16 sm:px-20 md:px-24 lg:px-24 py-5">
+      <div className="px-6 sm:px-20 md:px-24 lg:px-24 py-5">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4">
-          <div className="col-span-3">
+          <div className="col-span-12 md:col-span-12 lg:col-span-3">
             <div className="border border-white w-full relative">
               <Slider {...settings}>
                 <div className="offers offers_1 flex flex-col justify-center items-center">
@@ -48,7 +48,7 @@ const Section = () => {
               </Slider>
             </div>
           </div>
-          <div className="col-span-4">
+          <div className="col-span-12 md:col-span-12 lg:col-span-4">
             <div>
               <img
                 src={image_1}
@@ -57,7 +57,7 @@ const Section = () => {
               />
             </div>
           </div>
-          <div className="col-span-5">
+          <div className="col-span-12 md:col-span-12 lg:col-span-5">
             <img src={image_2} alt="banner2" className="w-full max-h-[184px]" />
           </div>
         </div>

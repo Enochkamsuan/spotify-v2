@@ -29,3 +29,12 @@ body {
 .offers_3 {
   background-image: url("./assets/images/slide_3.jpg");
 }
+.upper_slide {
+  background-image: url("./assets/images/images.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  min-height: 26.4em;
+  object-fit: cover;
+}
