@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { CiStar } from "react-icons/ci";
 import Cookies from "js-cookie";
 import { Badge } from "react-bootstrap";
+import Payment from "./payment";
 
 const CheckOut = () => {
   const [rating, setRating] = useState(0);
@@ -9,6 +10,7 @@ const CheckOut = () => {
   const [quantity, setQuantity] = useState(1);
   const [pincode, setPincode] = useState("");
   const [message, setMessage] = useState("");
+  const [selectedSize, setSelectedSize] = useState([]);
 
   useEffect(() => {
     const storedRating = Cookies.get("User_Rating");
@@ -60,13 +62,23 @@ const CheckOut = () => {
   };
 
   const handelSelectSizeClick = (size) => {
-    Cookies.set("tempsize", size, { expires: 1 });
+    let newSelectedSizes;
 
-    console.log("save size", size);
+    if (selectedSize.includes(size)) {
+      newSelectedSizes = selectedSize.filter((s) => s !== size);
+    } else {
+      newSelectedSizes = [...selectedSize, size];
+    }
+
+    setSelectedSize(newSelectedSizes);
+
+    Cookies.set("tempsize", JSON.stringify(newSelectedSizes), { expires: 1 });
+
+    console.log("saved sizes", newSelectedSizes);
   };
   return (
     <div className="px-6 sm:px-20 md:px-24 lg:px-24 py-9">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3 relative">
         <div className="p-2 bg-white w-full"></div>
         <div className="bg-gradient-to-b from-black via-[#a29696] to-[#cebfbf] rounded-md p-3">
           <div className="font-bold text-sm text-white">
@@ -166,7 +178,7 @@ const CheckOut = () => {
           )}
           <div className="flex gap-4 my-6">
             <div className="w-1/2">
-              <button className="border border-black py-2 px-3 w-full rounded-md text-sm">
+              <button className="border border-black text-white py-2 px-3 w-full rounded-md text-sm">
                 BUY NOW
               </button>
             </div>
@@ -175,6 +187,9 @@ const CheckOut = () => {
                 Add to cart
               </button>
             </div>
+          </div>
+          <div className="absolute top-1/2 left-1/2 w-1/2">
+            <Payment />
           </div>
         </div>
       </div>
