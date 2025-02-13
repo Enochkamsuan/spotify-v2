@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { CiStar } from "react-icons/ci";
 import Cookies from "js-cookie";
 import { Badge } from "react-bootstrap";
-// import axios from "axios";
 
 const CheckOut = () => {
   const [rating, setRating] = useState(0);
@@ -39,18 +38,37 @@ const CheckOut = () => {
       const response = await fetch(
         `https://api.postalpincode.in/pincode/${pincode}`
       );
-
       const data = await response.json();
-      console.log("data pincode", data);
+
+      if (data[0].Status === "Success" && data[0].PostOffice) {
+        if (
+          data[0].PostOffice[0].Region?.toLowerCase().includes(
+            "north eastern"
+          ) ||
+          data[0].PostOffice[0].Circle?.toLowerCase().includes("north eastern")
+        ) {
+          setMessage("Your delivery is expected within 14 days");
+        } else {
+          setMessage("Your delivery is expected within 14-18 working days");
+        }
+      } else {
+        setMessage("Invalid pincode");
+      }
     } catch (error) {
       console.error("error fetching PIN code response:", error);
     }
+  };
+
+  const handelSelectSizeClick = (size) => {
+    Cookies.set("tempsize", size, { expires: 1 });
+
+    console.log("save size", size);
   };
   return (
     <div className="px-6 sm:px-20 md:px-24 lg:px-24 py-9">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3">
         <div className="p-2 bg-white w-full"></div>
-        <div className="bg-gradient-to-b from-black via-[#a29696] to-[#cebfbf] p-3">
+        <div className="bg-gradient-to-b from-black via-[#a29696] to-[#cebfbf] rounded-md p-3">
           <div className="font-bold text-sm text-white">
             MEN'S 511 SLIM FIT INDIGO JEANS
           </div>
@@ -94,30 +112,18 @@ const CheckOut = () => {
             <div className="text-red-500 font-medium text-sm">SIZE CHART</div>
           </div>
           <div className="grid grid-cols-8 gap-4 pt-2">
-            <div className="p-2 border border-black flex justify-center items-center">
-              28
-            </div>
-            <div className="p-2 border border-black flex justify-center items-center">
-              30
-            </div>
-            <div className="p-2 border border-black flex justify-center items-center">
-              32
-            </div>
-            <div className="p-2 border border-black flex justify-center items-center">
-              34
-            </div>
-            <div className="p-2 border border-black flex justify-center items-center">
-              36
-            </div>
-            <div className="p-2 border border-black flex justify-center items-center">
-              38
-            </div>
-            <div className="p-2 border border-black flex justify-center items-center">
-              40
-            </div>
-            <div className="p-2 border border-black flex justify-center items-center">
-              42
-            </div>
+            {[28, 30, 32, 34, 36, 38, 40, 42].map((size) => {
+              return (
+                <div
+                  className="p-2 border border-black flex justify-center items-center cursor-pointer focus:outline focus:outline-black"
+                  key={size}
+                  onClick={() => handelSelectSizeClick(size)}
+                  tabIndex={0}
+                >
+                  {size}
+                </div>
+              );
+            })}
           </div>
           <div className="flex justify-between items-center mt-8">
             <div className="font-bold">Select Quantity</div>
@@ -155,6 +161,9 @@ const CheckOut = () => {
               Check
             </button>
           </form>
+          {message && (
+            <div className="text-white text-pretty py-2">{message}</div>
+          )}
           <div className="flex gap-4 my-6">
             <div className="w-1/2">
               <button className="border border-black py-2 px-3 w-full rounded-md text-sm">
