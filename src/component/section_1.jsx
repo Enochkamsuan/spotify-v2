@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import image_1 from "../assets/images/home-banner1.jpg";
 import image_2 from "../assets/images/home-banner2.jpg";
-import Landing from "../pages/landing";
+import Landing from "./landing";
 
 const Section = () => {
   var settings = {

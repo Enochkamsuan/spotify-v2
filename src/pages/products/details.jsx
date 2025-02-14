@@ -3,6 +3,7 @@ import { Badge } from "react-bootstrap";
 import Payment from "../../component/payment";
 import Size from "../../component/size";
 import Reviews from "../../component/reviews";
+import { useLocation } from "react-router-dom";
 const Details = () => {
   const [pincode, setPincode] = useState("");
   const [message, setMessage] = useState("");
@@ -39,11 +40,14 @@ const Details = () => {
       console.error("error fetching PIN code response:", error);
     }
   };
+  const location = useLocation();
+  console.log("location:", location.pathname);
 
+  // const { clickedImage } = location.state;
   return (
     <div className="px-6 sm:px-20 md:px-24 lg:px-24 py-9">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3 relative">
-        <div className="p-2 bg-white w-full"></div>
+        <div className="p-2 bg-white click_img w-full"></div>
         <div className="bg-gradient-to-b from-black via-[#a29696] to-[#cebfbf] rounded-md p-3">
           <div className="font-bold text-sm text-white">
             MEN'S 511 SLIM FIT INDIGO JEANS
