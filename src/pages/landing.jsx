@@ -32,7 +32,7 @@ const Landing = () => {
                   Impedit sequi a dolores distinctio beatae inventore po
                 </div>
                 <div className="mt-3">
-                  <Link to="/checkout">
+                  <Link to="/details">
                     <button className="bg-blue-400 text-white rounded-md px-5 py-2">
                       BUY NOW
                     </button>
@@ -49,7 +49,7 @@ const Landing = () => {
                   Impedit sequi a dolores distinctio beatae inventore po
                 </div>
                 <div className="mt-3">
-                  <Link to="/checkout">
+                  <Link to="/details">
                     <button className="bg-blue-400 text-white rounded-md px-5 py-2">
                       BUY NOW
                     </button>
@@ -68,7 +68,7 @@ const Landing = () => {
                   Impedit sequi a dolores distinctio beatae inventore po
                 </div>
                 <div className="mt-3">
-                  <Link to="/checkout">
+                  <Link to="/details">
                     <button className="bg-blue-400 text-white rounded-md px-5 py-2">
                       BUY NOW
                     </button>
