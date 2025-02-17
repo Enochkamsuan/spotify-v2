@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 const Size = () => {
   const [selectedSize, setSelectedSize] = useState([]);
   const [quantity, setQuantity] = useState(1);
+  console.log("quantity:", quantity);
 
   const handelSelectSizeClick = (size) => {
     let newSelectedSizes;
@@ -19,6 +20,15 @@ const Size = () => {
     Cookies.set("tempsize", JSON.stringify(newSelectedSizes), { expires: 1 });
 
     console.log("saved sizes", newSelectedSizes);
+  };
+
+  const handleSetQuantity = (quant) => {
+    let newQuantity = quant;
+
+    setQuantity(newQuantity);
+    Cookies.set("tempquantity", JSON.stringify(newQuantity), { expires: 1 });
+
+    console.log("Temp Quantity:", newQuantity);
   };
   return (
     <div>
@@ -44,14 +54,14 @@ const Size = () => {
         <div className="font-bold">Select Quantity</div>
         <div className="flex gap-2 items-center">
           <div
-            onClick={() => setQuantity(quantity - 1)}
+            onClick={() => handleSetQuantity(quantity > 1 ? quantity - 1 : 1)}
             className="border border-black flex items-center justify-center cursor-pointer px-3 py-1"
           >
             -
           </div>
           <div className="border border-black px-3 py-1">{quantity}</div>
           <div
-            onClick={() => setQuantity(quantity + 1)}
+            onClick={() => handleSetQuantity(quantity + 1)}
             className="border border-black flex items-center justify-center cursor-pointer px-3 py-1"
           >
             +

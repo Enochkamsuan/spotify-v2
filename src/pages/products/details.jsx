@@ -4,6 +4,9 @@ import Payment from "../../component/payment";
 import Size from "../../component/size";
 import Reviews from "../../component/reviews";
 import { useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setShowPaymentStatus } from "../../config/redux/slice/multiSlice";
+
 const Details = () => {
   const [pincode, setPincode] = useState("");
   const [message, setMessage] = useState("");
@@ -41,13 +44,21 @@ const Details = () => {
     }
   };
   const location = useLocation();
-  console.log("location:", location.pathname);
+  const clickedImage = location.state;
 
-  // const { clickedImage } = location.state;
+  const dispatch = useDispatch();
+
+  const showPaymentStatus = useSelector(
+    (state) => state.authentication.showPaymentStatus
+  );
+  console.log("showPaymentStatus", showPaymentStatus);
+
   return (
     <div className="px-6 sm:px-20 md:px-24 lg:px-24 py-9">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3 relative">
-        <div className="p-2 bg-white click_img w-full"></div>
+        <div>
+          <img src={clickedImage.clickedImage} alt="click" className="w-full" />
+        </div>
         <div className="bg-gradient-to-b from-black via-[#a29696] to-[#cebfbf] rounded-md p-3">
           <div className="font-bold text-sm text-white">
             MEN'S 511 SLIM FIT INDIGO JEANS
@@ -85,19 +96,24 @@ const Details = () => {
           )}
           <div className="flex gap-4 my-6">
             <div className="w-1/2">
-              <button className="border border-black text-white py-2 px-3 w-full rounded-md text-sm">
+              <button
+                className="border border-black text-white py-2 px-3 w-full rounded-md text-sm"
+                onClick={() => dispatch(setShowPaymentStatus(true))}
+              >
                 BUY NOW
               </button>
             </div>
             <div className="w-1/2">
-              <button className="bg-red-600 py-2 px-3 w-full  rounded-md text-sm">
+              <button className="bg-red-600 py-2 px-3 w-full text-white  rounded-md text-sm">
                 Add to cart
               </button>
             </div>
           </div>
-          <div className="absolute top-1/4 left-1/2 w-1/2">
-            <Payment />
-          </div>
+          {showPaymentStatus ? (
+            <div className="absolute payment_class top-1/4 left-1/2 w-1/2">
+              <Payment />
+            </div>
+          ) : null}
         </div>
       </div>
     </div>

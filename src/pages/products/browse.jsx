@@ -23,7 +23,7 @@ const Browse = () => {
       <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
         {pantsImage.map((image, index) => (
           <div key={index} className="bg-white p-3 rounded-md">
-            <Link to="/details">
+            <Link to="/details" state={{ clickedImage: image.src }}>
               <img
                 key={index}
                 src={image.src}
