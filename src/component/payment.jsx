@@ -5,12 +5,20 @@ import { useLocation } from "react-router-dom";
 import { RxCross1 } from "react-icons/rx";
 import { useDispatch } from "react-redux";
 import { setShowPaymentStatus } from "../config/redux/slice/multiSlice";
+import Cookies from "js-cookie";
 
 const Payment = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const location = useLocation();
   const clickedImage = location.state;
+
+  const productQuantity = Cookies.get("tempquantity", JSON.stringify(), {
+    expires: 1,
+  });
+  const productSize = Cookies.get("tempsize", JSON.stringify(), {
+    expires: 1,
+  });
 
   const dispatch = useDispatch();
 
@@ -38,8 +46,8 @@ const Payment = () => {
           <div>$</div>
         </div>
         <div
-          className={`transition-all overflow-hidden relative ${
-            isOpen ? "max-h-64" : "max-h-0"
+          className={`transition-all overflow-hidden ${
+            isOpen ? "max-h-96" : "max-h-0"
           } duration-300`}
         >
           <div className="flex gap-2 items-center mt-2">
@@ -53,8 +61,8 @@ const Payment = () => {
             <div>
               <div className="text-xs">MEN'S 511 SLIM FIT INDIGO JEANS</div>
               <div>Price:</div>
-              <div>Quantity:</div>
-              <div>Size:</div>
+              <div>Quantity:{productQuantity}</div>
+              <div>Size:{productSize}</div>
             </div>
           </div>
           <div className="flex justify-between items-center">
@@ -73,12 +81,18 @@ const Payment = () => {
             <div className="text-xs font-medium">Shipping:</div>
             <div className="font-semibold">Free</div>
           </div>
-          <div /*className="after:absolute after:content-[''] after:w-full after:h-[1px] after:bg-black after:bottom-0 after:left-0" */
-          >
-            <div className="flex justify-between items-center">
-              <div>To Pay</div>
-              <div>2039</div>
+          <div className="relative">
+            <div className="after:absolute after:content-[''] after:w-full after:h-[1px] after:bg-black after:top-[-3px] after:left-0">
+              <div className="flex justify-between items-center">
+                <div>To Pay</div>
+                <div>2039</div>
+              </div>
             </div>
+          </div>
+          <div className="mt-3">
+            <button className="bg-black text-white py-2 px-3 rounded-md w-full">
+              PROCEED PAYMENT
+            </button>
           </div>
         </div>
       </div>

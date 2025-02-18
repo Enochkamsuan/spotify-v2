@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 
 const Size = () => {
   const [selectedSize, setSelectedSize] = useState([]);
-  const [quantity, setQuantity] = useState(1);
-  console.log("quantity:", quantity);
+  const [quantity, setQuantity] = useState(() => {
+    const savedQuantity = Cookies.get("tempquantity");
+    return savedQuantity ? JSON.parse(savedQuantity) : 1;
+  });
 
   const handelSelectSizeClick = (size) => {
     let newSelectedSizes;
@@ -30,6 +32,14 @@ const Size = () => {
 
     console.log("Temp Quantity:", newQuantity);
   };
+
+  useEffect(() => {
+    if (!Cookies.get("tempquantity")) {
+      Cookies.set("tempquantity", JSON.stringify(1), { expires: 1 });
+    }
+  });
+  console.log("quantity:", quantity);
+
   return (
     <div>
       <div className="flex justify-between items-center">

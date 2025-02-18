@@ -1,11 +1,14 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { Badge } from "react-bootstrap";
 import Payment from "../../component/payment";
 import Size from "../../component/size";
 import Reviews from "../../component/reviews";
-import { useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { setShowPaymentStatus } from "../../config/redux/slice/multiSlice";
+import {
+  setShowPaymentStatus,
+  addToCart,
+} from "../../config/redux/slice/multiSlice";
 
 const Details = () => {
   const [pincode, setPincode] = useState("");
@@ -52,6 +55,14 @@ const Details = () => {
     (state) => state.authentication.showPaymentStatus
   );
   console.log("showPaymentStatus", showPaymentStatus);
+
+  const handleAddToCart = () => {
+    dispatch(
+      addToCart({
+        id: clickedImage.id,
+      })
+    );
+  };
 
   return (
     <div className="px-6 sm:px-20 md:px-24 lg:px-24 py-9">
@@ -104,7 +115,10 @@ const Details = () => {
               </button>
             </div>
             <div className="w-1/2">
-              <button className="bg-red-600 py-2 px-3 w-full text-white  rounded-md text-sm">
+              <button
+                className="bg-red-600 py-2 px-3 w-full text-white  rounded-md text-sm"
+                onClick={handleAddToCart}
+              >
                 Add to cart
               </button>
             </div>

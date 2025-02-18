@@ -1,11 +1,18 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { FaSearch, FaShoppingCart } from "react-icons/fa";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
+import Cart from ".././pages/orders/cart";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showCart, setShowCart] = useState(false);
+  const totalQuantity = useSelector(
+    (state) => state.authentication.totalQuantity
+  );
+  console.log("setShowCart:", setShowCart);
 
   const options = [
     { label: "DRESSES" },
@@ -154,12 +161,21 @@ const Header = () => {
               </Link>
             </li>
             <li>
-              <div className="p-3">
+              <div
+                className="p-3 cursor-pointer relative"
+                onClick={() => setShowCart(!showCart)}
+              >
                 <FaShoppingCart className="text-white" />
+                {totalQuantity > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                    {totalQuantity}
+                  </span>
+                )}
               </div>
             </li>
           </ul>
         </div>
+        {showCart && <Cart />}
       </div>
     </nav>
   );
