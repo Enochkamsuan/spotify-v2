@@ -3,7 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   showPaymentStatus: false,
   items: [],
-  totalQuantity: 0,
+  totalQuantity: localStorage.getItem("productquantity")
+    ? parseInt(localStorage.getItem("productquantity"))
+    : 0,
+  clickedImage: null,
 };
 
 const multiSlice = createSlice({
@@ -23,6 +26,7 @@ const multiSlice = createSlice({
         state.items.push({ ...newItem, quantity: 1 });
       }
       state.totalQuantity++;
+      localStorage.setItem("productquantity", state.totalQuantity);
     },
     removeFromCart(state, action) {
       const id = action.payload;
@@ -35,8 +39,16 @@ const multiSlice = createSlice({
       }
       state.totalQuantity--;
     },
+    setClickedImage(state, action) {
+      state.clickedImage = action.payload;
+      localStorage.setItem("clickedImage", action.payload);
+    },
   },
 });
-export const { setShowPaymentStatus, addToCart, removeFromCart } =
-  multiSlice.actions;
+export const {
+  setShowPaymentStatus,
+  addToCart,
+  removeFromCart,
+  setClickedImage,
+} = multiSlice.actions;
 export default multiSlice.reducer;

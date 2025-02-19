@@ -1,20 +1,21 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
 
 const Cart = () => {
   const totalQuantity = useSelector(
     (state) => state.authentication.totalQuantity
   );
-  const location = useLocation();
-  const clickedImage = location.state;
+
+  const clickedImage =
+    useSelector((state) => state.authentication.clickedImage) ||
+    localStorage.getItem("clickedImage");
   return (
     <div className="bg-white ms-auto rounded-md p-3 w-1/2">
       <div className="text-md font-bold">Your Cart:({totalQuantity})</div>
-      {totalQuantity > 0 && clickedImage.clickedImage && (
+      {totalQuantity > 0 && clickedImage && (
         <div>
           <img
-            src={clickedImage.clickedImage}
+            src={clickedImage}
             alt="click_image"
             className="w-24 h-24 object-contain"
           />

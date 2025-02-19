@@ -12,7 +12,6 @@ const Header = () => {
   const totalQuantity = useSelector(
     (state) => state.authentication.totalQuantity
   );
-  console.log("setShowCart:", setShowCart);
 
   const options = [
     { label: "DRESSES" },

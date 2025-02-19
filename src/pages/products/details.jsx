@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Badge } from "react-bootstrap";
 import Payment from "../../component/payment";
 import Size from "../../component/size";
 import Reviews from "../../component/reviews";
+import productDetail from "../../assets/data/data";
 import {
   setShowPaymentStatus,
   addToCart,
@@ -46,15 +46,17 @@ const Details = () => {
       console.error("error fetching PIN code response:", error);
     }
   };
-  const location = useLocation();
-  const clickedImage = location.state;
+
+  const clickedImage =
+    useSelector((state) => state.authentication.clickedImage) ||
+    localStorage.getItem("clickedImage");
+  console.log("clickedImage", clickedImage);
 
   const dispatch = useDispatch();
 
   const showPaymentStatus = useSelector(
     (state) => state.authentication.showPaymentStatus
   );
-  console.log("showPaymentStatus", showPaymentStatus);
 
   const handleAddToCart = () => {
     dispatch(
@@ -64,15 +66,23 @@ const Details = () => {
     );
   };
 
+  const product =
+    productDetail.find((item) => item.id === clickedImage?.id) || {};
+
   return (
     <div className="px-6 sm:px-20 md:px-24 lg:px-24 py-9">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3 relative">
         <div>
-          <img src={clickedImage.clickedImage} alt="click" className="w-full" />
+          <img src={clickedImage} alt="click" className="w-full" />
         </div>
         <div className="bg-gradient-to-b from-black via-[#a29696] to-[#cebfbf] rounded-md p-3">
           <div className="font-bold text-sm text-white">
-            MEN'S 511 SLIM FIT INDIGO JEANS
+            {product.id ? (
+              <div>{product.detail}</div>
+            ) : (
+              <div>No items available</div>
+            )}
+            {console.log("product id", product.id)}
           </div>
           <Reviews />
           <div className="flex items-center gap-3">
