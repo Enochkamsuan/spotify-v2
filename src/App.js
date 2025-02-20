@@ -1,6 +1,6 @@
 import "./App.css";
 import Index from "./pages/home";
-import { store } from "./store/store";
+import { store } from "./config/redux/store/store";
 import { Provider } from "react-redux";
 
 function App() {

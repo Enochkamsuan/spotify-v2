@@ -38,7 +38,6 @@ const Size = () => {
       Cookies.set("tempquantity", JSON.stringify(1), { expires: 1 });
     }
   });
-  console.log("quantity:", quantity);
 
   return (
     <div>

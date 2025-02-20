@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { FaSearch, FaShoppingCart } from "react-icons/fa";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
-import Cart from ".././pages/orders/cart";
+import Cart from "../../pages/orders/cart";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);

@@ -6,7 +6,7 @@ const initialState = {
   totalQuantity: localStorage.getItem("productquantity")
     ? parseInt(localStorage.getItem("productquantity"))
     : 0,
-  clickedImage: null,
+  clickImage: null,
 };
 
 const multiSlice = createSlice({
@@ -15,6 +15,9 @@ const multiSlice = createSlice({
   reducers: {
     setShowPaymentStatus(state, action) {
       state.showPaymentStatus = action.payload;
+    },
+    setClickImage(state, action) {
+      state.clickImage = action.payload;
     },
     addToCart(state, action) {
       const newItem = action.payload;
@@ -39,16 +42,12 @@ const multiSlice = createSlice({
       }
       state.totalQuantity--;
     },
-    setClickedImage(state, action) {
-      state.clickedImage = action.payload;
-      localStorage.setItem("clickedImage", action.payload);
-    },
   },
 });
 export const {
   setShowPaymentStatus,
   addToCart,
   removeFromCart,
-  setClickedImage,
+  setClickImage,
 } = multiSlice.actions;
 export default multiSlice.reducer;

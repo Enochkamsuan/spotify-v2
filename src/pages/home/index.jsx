@@ -1,6 +1,6 @@
 import React from "react";
-import Header from "../../navigation/header";
-import Footer from "../../navigation/footer";
+import Header from "../../component/navigation/header";
+import Footer from "../../component/navigation/footer";
 import RoutePage from "../../config/routes/routes";
 
 const Index = () => {

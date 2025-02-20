@@ -9,6 +9,8 @@ const Cart = () => {
   const clickedImage =
     useSelector((state) => state.authentication.clickedImage) ||
     localStorage.getItem("clickedImage");
+  console.log("clickImage", clickedImage);
+
   return (
     <div className="bg-white ms-auto rounded-md p-3 w-1/2">
       <div className="text-md font-bold">Your Cart:({totalQuantity})</div>
