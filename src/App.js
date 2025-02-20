@@ -1,12 +1,16 @@
 import "./App.css";
-import Index from "./pages/home";
 import { store } from "./config/redux/store/store";
 import { Provider } from "react-redux";
+import RoutePage from "./config/routes/routes";
+import Header from "./component/navigation/header";
+import Footer from "./component/navigation/footer";
 
 function App() {
   return (
     <Provider store={store}>
-      <Index />
+      <Header />
+      <RoutePage />
+      <Footer />
     </Provider>
   );
 }

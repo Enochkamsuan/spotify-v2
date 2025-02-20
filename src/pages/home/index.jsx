@@ -1,14 +1,10 @@
 import React from "react";
-import Header from "../../component/navigation/header";
-import Footer from "../../component/navigation/footer";
-import RoutePage from "../../config/routes/routes";
+import Section from "../../component/section_1";
 
 const Index = () => {
   return (
     <div>
-      <Header />
-      <RoutePage />
-      <Footer />
+      <Section />
     </div>
   );
 };
