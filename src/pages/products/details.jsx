@@ -10,13 +10,18 @@ import {
   addToCart,
   setClickImage,
 } from "../../config/redux/slice/multiSlice";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 const Details = () => {
   const [pincode, setPincode] = useState("");
   const [message, setMessage] = useState("");
   const [clickedImage, setClickedImage] = useState("");
   const location = useLocation();
+
+  const { types } = useParams();
+  const { id } = useParams();
+  console.log("routes types", types);
+  console.log("routes id", id);
 
   const handleSubmit = async (ev) => {
     ev.preventDefault();
@@ -65,8 +70,18 @@ const Details = () => {
       })
     );
   };
-
-  console.log("product", productDetail);
+  const importAllImage = (requireContext) => {
+    return requireContext.keys().map((key) => ({
+      name: key.replace("./", ""),
+      src: requireContext(key),
+    }));
+  };
+  const allImages = importAllImage(
+    require.context("../../assets/images/pants", false, /\.(jpg|jpeg|png)$/)
+  );
+  const pantsImage = allImages
+    .filter((image) => image.name.startsWith("pants"))
+    .sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
 
   useEffect(() => {
     if (location.state?.imagesrc) {
@@ -79,15 +94,20 @@ const Details = () => {
     <div className="px-6 sm:px-20 md:px-24 lg:px-24 py-9">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3 relative">
         <div>
-          <img src={clickedImage} alt="click" className="w-full" />
+          <img src={pantsImage[id - 1].src} alt="click" className="w-full" />
         </div>
         <div className="bg-gradient-to-b from-black via-[#a29696] to-[#cebfbf] rounded-md p-3">
           <div className="font-bold text-sm text-white">
-            {productDetail.id ? (
-              <div>{productDetail.detail}</div>
-            ) : (
-              <div>No items available</div>
-            )}
+            {productDetail.map((name, ind) => (
+              <div key={ind}>
+                {name.id ? (
+                  <div>{name.detail}</div>
+                ) : (
+                  <div>No items available</div>
+                )}
+                {console.log("name.detail", name.detail)}
+              </div>
+            ))}
           </div>
           <Reviews />
           <div className="flex items-center gap-3">
