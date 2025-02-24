@@ -98,16 +98,18 @@ const Details = () => {
         </div>
         <div className="bg-gradient-to-b from-black via-[#a29696] to-[#cebfbf] rounded-md p-3">
           <div className="font-bold text-sm text-white">
-            {productDetail.map((name, ind) => (
-              <div key={ind}>
-                {name.id ? (
-                  <div>{name.detail}</div>
-                ) : (
-                  <div>No items available</div>
-                )}
-                {console.log("name.detail", name.detail)}
-              </div>
-            ))}
+            {productDetail
+              .filter((name) => name.id === Number(id))
+              .map((name, ind) => (
+                <div key={ind}>
+                  {name.id ? (
+                    <div>{name.detail}</div>
+                  ) : (
+                    <div>No items available</div>
+                  )}
+                  {console.log("name.detail", name.detail)}
+                </div>
+              ))}
           </div>
           <Reviews />
           <div className="flex items-center gap-3">
