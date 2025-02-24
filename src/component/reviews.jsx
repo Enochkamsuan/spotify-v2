@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { CiStar } from "react-icons/ci";
+import { FaStar } from "react-icons/fa6";
 import Cookies from "js-cookie";
 
 const Reviews = () => {
@@ -22,7 +22,7 @@ const Reviews = () => {
   }, []);
   return (
     <div>
-      <div className="flex items-center gap-2 py-3">
+      <div className="py-3">
         <div className="flex gap-1 text-white">
           {[...Array(5)].map((_, index) => (
             <div
@@ -30,21 +30,20 @@ const Reviews = () => {
               onClick={() => handleRatings(index)}
               className="cursor-pointer"
             >
-              <CiStar
-                className={index < rating ? "text-yellow-400" : "text-gray-400"}
+              <FaStar
+                className={index < rating ? "text-yellow-400" : "text-white"}
                 size={24}
               />
             </div>
           ))}
         </div>
-        <div className="text-xs text-white">Write a review</div>
       </div>
       <div>
         <button
           className="border border-white rounded-md text-xs text-white px-2 py-1"
           onClick={submitRating}
         >
-          SUBMIT RATINGS
+          SUBMIT REVIEWS
         </button>
       </div>
     </div>

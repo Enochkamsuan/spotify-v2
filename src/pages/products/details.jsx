@@ -144,7 +144,6 @@ const Details = () => {
                 </div>
               ))}
           </div>
-          <Reviews />
           <div className="flex items-center gap-3">
             <div className="py-5">
               <Badge className="px-2 py-1 bg-red-400 rounded-lg text-white text-sm">
@@ -197,6 +196,7 @@ const Details = () => {
               <Payment />
             </div>
           ) : null}
+          <Reviews />
         </div>
       </div>
     </div>
