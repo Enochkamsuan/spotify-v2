@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { FaSearch, FaShoppingCart } from "react-icons/fa";
 import Dropdown from "react-dropdown";
@@ -20,50 +20,22 @@ const Header = () => {
       name: "Clothing",
       items: [
         {
-          value: "Designer Wear",
-          label: "Designer Wear",
+          value: "pants",
+          label: "pants",
           className: "myOptionClassName",
         },
-        { value: "Ethenic Wear", label: "Ethenic Wear" },
+        { value: "shirt", label: "shirt" },
         { value: "Night Wear", label: "Night Wear" },
         { value: "Western Wear", label: "Western Wear" },
       ],
     },
-    {
-      type: "group",
-      name: "Winter Wear",
-      items: [
-        { value: "Shrugs", label: "Shrugs" },
-        { value: "Sweat Shirt", label: "Sweat Shirt" },
-        { value: "Beach Clothing", label: "Beach Clothing" },
-      ],
-    },
-    {
-      type: "group",
-      name: "Sports Wear",
-      items: [
-        { value: "T-shirts", label: "T-shirts" },
-        { value: "Shorts", label: "Shorts" },
-        { value: "Jackets", label: "Jackets" },
-        { value: "Skirts", label: "Skirts" },
-      ],
-    },
-    {
-      type: "group",
-      name: "SWIMWEAR",
-      items: [
-        { value: "Swimsuits", label: "Swimsuits" },
-        { value: "Bikinis", label: "Bikinis" },
-        { value: "Thermals", label: "Beach Clothing" },
-        { value: "Outerwear", label: "Outerwear" },
-      ],
-    },
   ];
-  const [selected, setSelected] = useState(options[0]);
 
+  const navigate = useNavigate();
   const handleSelect = (option) => {
-    setSelected(option.value);
-    console.log("selected:", option.value);
+    if (option.value) {
+      navigate(`/browse/${option.value}`);
+    }
   };
 
   return (
@@ -122,7 +94,7 @@ const Header = () => {
                 HOME
               </Link>
             </li>
-            <li>
+            <li className="dropdown_mar pl-4">
               <Link
                 to={"/"}
                 className="block py-2 px-3 text-xs rounded-sm md:border-0 hover:text-blue-700 md:p-0"
@@ -130,7 +102,7 @@ const Header = () => {
                 <Dropdown
                   options={options}
                   onChange={handleSelect}
-                  value={selected}
+                  // value={selected}
                   placeholder="Select an option"
                 />
               </Link>

@@ -76,12 +76,38 @@ const Details = () => {
       src: requireContext(key),
     }));
   };
-  const allImages = importAllImage(
-    require.context("../../assets/images/pants", false, /\.(jpg|jpeg|png)$/)
-  );
-  const pantsImage = allImages
-    .filter((image) => image.name.startsWith("pants"))
+  // const allImages = importAllImage(
+  //   require.context("../../assets/images/pants", false, /\.(jpg|jpeg|png)$/)
+  // );
+  let allImages = [];
+  try {
+    if (types === "shirt") {
+      allImages = importAllImage(
+        require.context(
+          "../../assets/images/shirts",
+          false,
+          /\.(jpg|jpeg|png|avig)$/
+        )
+      );
+    } else if (types === "pants") {
+      allImages = importAllImage(
+        require.context(
+          "../../assets/images/pants",
+          false,
+          /\.(jpg|jpeg|png|avig)$/
+        )
+      );
+    }
+  } catch (error) {
+    console.error("error loading images", error);
+  }
+  // const pantsImage = allImages
+  //   .filter((image) => image.name.startsWith("pants"))
+  //   .sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
+  const filteredImages = allImages
+    .filter((image) => image.name.startsWith(types))
     .sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
+  console.log("filtered images:", filteredImages);
 
   useEffect(() => {
     if (location.state?.imagesrc) {
@@ -94,7 +120,11 @@ const Details = () => {
     <div className="px-6 sm:px-20 md:px-24 lg:px-24 py-9">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3 relative">
         <div>
-          <img src={pantsImage[id - 1].src} alt="click" className="w-full" />
+          <img
+            src={filteredImages[id - 1].src}
+            alt="click"
+            className="w-full"
+          />
         </div>
         <div className="bg-gradient-to-b from-black via-[#a29696] to-[#cebfbf] rounded-md p-3">
           <div className="font-bold text-sm text-white">
@@ -103,7 +133,10 @@ const Details = () => {
               .map((name, ind) => (
                 <div key={ind}>
                   {name.id ? (
-                    <div>{name.detail}</div>
+                    <div>
+                      <div>{name.detail}</div>
+                      <div className="font-bold">{name.price}</div>
+                    </div>
                   ) : (
                     <div>No items available</div>
                   )}
@@ -113,8 +146,7 @@ const Details = () => {
           </div>
           <Reviews />
           <div className="flex items-center gap-3">
-            <div className="font-bold py-5">$50</div>
-            <div>
+            <div className="py-5">
               <Badge className="px-2 py-1 bg-red-400 rounded-lg text-white text-sm">
                 30% off
               </Badge>
